@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Pokedex</string>
+
+    <!--HTTP Error-->
+    <string name="response_error">Response Error, Unknown Error</string>
 </resources>
