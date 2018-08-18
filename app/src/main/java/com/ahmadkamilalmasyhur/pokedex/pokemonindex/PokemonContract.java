@@ -13,6 +13,7 @@ public interface PokemonContract {
         void showShortErrorSnackbarMessage(String message);
     }
     interface PokemonPresenter extends BasePresenter {
-        public void getListPokemonByIndex(int limit, int offset);
+        void getListPokemonByIndex(int limit, int offset);
+        void getNextListPokemon();
     }
 }

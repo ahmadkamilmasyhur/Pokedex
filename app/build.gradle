@@ -4,6 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.ahmadkamilalmasyhur.pokedex"
+        multiDexEnabled true
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 1
@@ -33,6 +34,13 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     //ButterKnife
     implementation 'com.jakewharton:butterknife:8.8.1'
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    //Image Slider
+    implementation 'com.nineoldandroids:library:2.4.0'
+    implementation 'com.daimajia.slider:library:1.1.5@aar'
+
+    implementation 'com.android.support:multidex:1.0.0'
 
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     testImplementation 'junit:junit:4.12'

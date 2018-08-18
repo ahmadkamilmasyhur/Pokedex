@@ -5,6 +5,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.ahmadkamilalmasyhur.pokedex.R;
 import com.ahmadkamilalmasyhur.pokedex.model.pokemonlist.Pokemon;
@@ -22,7 +23,6 @@ public class PokemonActivity extends AppCompatActivity implements PokemonContrac
     private List<Pokemon> pokemonList = new ArrayList<>();
     private PokemonPresenter presenter;
     PokemonAdapter adapter;
-    private final int limit = 20;
     private LinearLayoutManager linearLayoutManager;
 
     @Override
@@ -42,8 +42,9 @@ public class PokemonActivity extends AppCompatActivity implements PokemonContrac
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (linearLayoutManager.findLastVisibleItemPosition() == pokemonList.size()) {
-                    presenter.getListPokemonByIndex(limit, pokemonList.size()+limit);
+                Log.i(PokemonActivity.class.getSimpleName(), "" + linearLayoutManager.findLastVisibleItemPosition());
+                if (linearLayoutManager.findLastVisibleItemPosition() == pokemonList.size() - 1) {
+                    presenter.getNextListPokemon();
                 }
             }
         });
@@ -69,7 +70,7 @@ public class PokemonActivity extends AppCompatActivity implements PokemonContrac
 
     @Override
     public void showShortErrorSnackbarMessage(String message) {
-        if (!message.equalsIgnoreCase("")){
+        if (!message.equalsIgnoreCase("")) {
             Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show();
         } else {
             Snackbar.make(findViewById(android.R.id.content), getResources().getText(R.string.response_error), Snackbar.LENGTH_SHORT).show();

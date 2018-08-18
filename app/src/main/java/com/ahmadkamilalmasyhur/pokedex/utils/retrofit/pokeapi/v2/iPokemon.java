@@ -1,6 +1,8 @@
 package com.ahmadkamilalmasyhur.pokedex.utils.retrofit.pokeapi.v2;
 
+import com.ahmadkamilalmasyhur.pokedex.model.pokemondetail.PokemonDetailResponse;
 import com.ahmadkamilalmasyhur.pokedex.model.pokemonlist.PokemonListResponse;
+import com.ahmadkamilalmasyhur.pokedex.model.pokemonmove.MoveResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -15,5 +17,13 @@ public interface iPokemon {
 
     @Headers("Accept: application/json")
     @GET("pokemon/{id}")
-    Call<PokemonListResponse> getPokemonById(@Path("id") String id);
+    Call<PokemonDetailResponse> getPokemonById(@Path("id") String id);
+
+    @Headers("Accept: application/json")
+    @GET("pokemon/{name}")
+    Call<PokemonDetailResponse> getPokemonByName(@Path("name") String name);
+
+    @Headers("Accept: application/json")
+    @GET("move/{id}/")
+    Call<MoveResponse> getPokemonMoveById(@Path("id") String id);
 }
