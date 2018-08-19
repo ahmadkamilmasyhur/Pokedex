@@ -5,12 +5,10 @@ import com.ahmadkamilalmasyhur.pokedex.model.pokemondetail.Move;
 import com.ahmadkamilalmasyhur.pokedex.model.pokemondetail.PokemonDetailResponse;
 import com.ahmadkamilalmasyhur.pokedex.model.pokemondetail.Stat;
 import com.ahmadkamilalmasyhur.pokedex.model.pokemondetail.Type;
-import com.ahmadkamilalmasyhur.pokedex.model.pokemonmove.FlavorTextEntry;
 import com.ahmadkamilalmasyhur.pokedex.model.pokemonmove.MoveResponse;
 import com.ahmadkamilalmasyhur.pokedex.utils.retrofit.ApiClient;
 import com.ahmadkamilalmasyhur.pokedex.utils.retrofit.pokeapi.v2.iPokemon;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -20,7 +18,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PokemonDetailPresenter implements PokemonDetailContract.IPokemonDetailPresenter {
-    PokemonDetailContract.IPokemonDetailView pokemonDetailView;
+    private PokemonDetailContract.IPokemonDetailView pokemonDetailView;
     private String pokemonName = "";
 
     public PokemonDetailPresenter(PokemonDetailContract.IPokemonDetailView IPokemonDetailView) {
@@ -60,7 +58,7 @@ public class PokemonDetailPresenter implements PokemonDetailContract.IPokemonDet
         getPokemonMoveDetailById(id.replace("/", ""));
     }
 
-    public void getPokemonMoveDetailById(String moveId) {
+    private void getPokemonMoveDetailById(String moveId) {
         iPokemon apiService = ApiClient.getClient().create(iPokemon.class);
         Call<MoveResponse> call = apiService.getPokemonMoveById(moveId);
         call.enqueue(new Callback<MoveResponse>() {
@@ -79,65 +77,70 @@ public class PokemonDetailPresenter implements PokemonDetailContract.IPokemonDet
     private void processServerMoveResponse(Response<MoveResponse> response) {
         if (response.code() == HttpsURLConnection.HTTP_OK) {
             MoveResponse moveDetailResponse = response.body();
-            String accuracy = checkIfValueIsNotNull(moveDetailResponse.getAccuracy());
-            String critRate = checkIfValueIsNotNull(moveDetailResponse.getMeta().getCritRate());
-            String healing = checkIfValueIsNotNull(moveDetailResponse.getMeta().getHealing());
-            String category = moveDetailResponse.getMeta().getCategory().getName();
-            String demageClass = moveDetailResponse.getDamageClass().getName();
-            String power = checkIfValueIsNotNull(moveDetailResponse.getPower());
-            String effect = moveDetailResponse.getEffectEntries().get(0).getEffect();
-            String shortEffect = moveDetailResponse.getEffectEntries().get(0).getShortEffect();
-            StringBuilder stringBuilder = new StringBuilder();
+            if (null != moveDetailResponse) {
+                String accuracy = checkIfValueIsNotNull(moveDetailResponse.getAccuracy());
+                String critRate = checkIfValueIsNotNull(moveDetailResponse.getMeta().getCritRate());
+                String healing = checkIfValueIsNotNull(moveDetailResponse.getMeta().getHealing());
+                String category = moveDetailResponse.getMeta().getCategory().getName();
+                String demageClass = moveDetailResponse.getDamageClass().getName();
+                String power = checkIfValueIsNotNull(moveDetailResponse.getPower());
+                String effect = moveDetailResponse.getEffectEntries().get(0).getEffect();
+                String shortEffect = moveDetailResponse.getEffectEntries().get(0).getShortEffect();
+                StringBuilder stringBuilder = new StringBuilder();
 
-            stringBuilder.append("Short Effect : "+ shortEffect);
-            stringBuilder.append("\nEffect : "+ effect);
+                stringBuilder.append("Short Effect : " + shortEffect + "\nEffect : " + effect);
 
-            for (int i = 0; i < moveDetailResponse.getFlavorTextEntries().size(); i++) {
-                if (moveDetailResponse.getFlavorTextEntries().get(i).getLanguage().getName().equalsIgnoreCase("en")) {
-                    stringBuilder.append("\n" +moveDetailResponse.getFlavorTextEntries().get(i).getVersionGroup().getName() + " : " +
-                            moveDetailResponse.getFlavorTextEntries().get(i).getFlavorText().replaceAll("\n",""));
+                for (int i = 0; i < moveDetailResponse.getFlavorTextEntries().size(); i++) {
+                    if (moveDetailResponse.getFlavorTextEntries().get(i).getLanguage().getName().equalsIgnoreCase("en")) {
+                        String concate = "\n" + moveDetailResponse.getFlavorTextEntries().get(i).getVersionGroup().getName() + " : " +
+                                moveDetailResponse.getFlavorTextEntries().get(i).getFlavorText().replaceAll("\n", "");
+                        stringBuilder.append(concate);
+                    }
                 }
+                pokemonDetailView.setPokemonMoveDetail(stringBuilder.toString());
+
+                pokemonDetailView.setPokemonMove("Accuracy : " + accuracy +
+                        "\nCritical Rate : " + critRate +
+                        "\nHealing : " + healing +
+                        "\nCategory : " + category +
+                        "\nDemage Class : " + demageClass +
+                        "\nPower : " + power
+                );
             }
-            pokemonDetailView.setPokemonMoveDetail(stringBuilder.toString());
-
-            pokemonDetailView.setPokemonMove("Accuracy : " + accuracy +
-                    "\nCritical Rate : " + critRate +
-                    "\nHealing : " + healing +
-                    "\nCategory : " + category +
-                    "\nDemage Class : " + demageClass +
-                    "\nPower : " + power
-            );
         } else {
-
+            pokemonDetailView.showShortErrorSnackbarMessage("");
         }
     }
 
     private String checkIfValueIsNotNull(Integer s) {
         String newValue = "-";
         try {
-            if (null != s){
+            if (null != s) {
                 newValue = String.valueOf(s);
             }
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             newValue = "-";
-        } finally {
-            return newValue;
         }
+        return newValue;
     }
 
     private void processServerResponse(Response<PokemonDetailResponse> response) {
         if (response.code() == HttpsURLConnection.HTTP_OK) {
             PokemonDetailResponse detailResponse = response.body();
-            addImageToSlider(detailResponse);
-            setPokemonType(detailResponse.getTypes());
-            setPokemonHeight(detailResponse.getHeight());
-            setPokemonWeight(detailResponse.getWeight());
-            setPokemonAbility(detailResponse.getAbilities());
-            setPokemonStats(detailResponse.getStats());
-            setPokemonMoves(detailResponse.getMoves());
-            setPokemonNameAndExp(detailResponse.getName(), detailResponse.getBaseExperience());
+            if (null != detailResponse){
+                addImageToSlider(detailResponse);
+                setPokemonType(detailResponse.getTypes());
+                setPokemonHeight(detailResponse.getHeight());
+                setPokemonWeight(detailResponse.getWeight());
+                setPokemonAbility(detailResponse.getAbilities());
+                setPokemonStats(detailResponse.getStats());
+                setPokemonMoves(detailResponse.getMoves());
+                setPokemonNameAndExp(detailResponse.getName(), detailResponse.getBaseExperience());
+            } else {
+                pokemonDetailView.showShortErrorSnackbarMessage("");
+            }
         } else {
-
+            pokemonDetailView.showShortErrorSnackbarMessage("");
         }
     }
 

@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PokemonStatsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    List<Stat> stats = new ArrayList<>();
+    private List<Stat> stats = new ArrayList<>();
 
     public PokemonStatsAdapter() {
     }
@@ -54,10 +54,11 @@ public class PokemonStatsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final Stat stat) {
-            statsDetail.setText(stat.getStat().getName() + " :" +
+        private void bind(final @NonNull Stat stat) {
+            String concate = stat.getStat().getName() + " :" +
                     "\n\teffort : " + stat.getEffort() +
-                    "\n\tbase stat : " + stat.getBaseStat());
+                    "\n\tbase stat : " + stat.getBaseStat();
+            statsDetail.setText(concate);
 
         }
     }

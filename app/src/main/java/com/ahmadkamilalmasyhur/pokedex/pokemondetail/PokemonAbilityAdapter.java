@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ahmadkamilalmasyhur.pokedex.R;
@@ -18,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PokemonAbilityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    List<Ability> abilities = new ArrayList<>();
+    private List<Ability> abilities = new ArrayList<>();
 
     public PokemonAbilityAdapter() {
     }
@@ -55,7 +54,7 @@ public class PokemonAbilityAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final Ability ability) {
+        private void bind(final Ability ability) {
             abilityDetail.setText(ability.getAbility().getName());
         }
     }

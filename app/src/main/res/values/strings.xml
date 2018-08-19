@@ -3,4 +3,5 @@
 
     <!--HTTP Error-->
     <string name="response_error">Response Error, Unknown Error</string>
+    <string name="error_1">Http Connection Error - Need to Complete the Captcha (Use VPN Instead)</string>
 </resources>

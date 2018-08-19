@@ -14,11 +14,10 @@
             android:id="@+id/txv_pokemon_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorBlack"
-            android:text=""
             android:gravity="center"
-            android:textSize="20sp"
-            />
+            android:text=""
+            android:textColor="@color/colorBlack"
+            android:textSize="20sp" />
 
         <com.daimajia.slider.library.SliderLayout
             android:id="@+id/image_slider"
@@ -44,12 +43,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
+                    android:textColor="@color/colorBlack"
                     android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Type" />
+                    android:text="Type"
+                    android:textColor="@color/colorBlack" />
             </LinearLayout>
 
             <View
@@ -71,12 +72,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
+                    android:textColor="@color/colorBlack"
                     android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Weight" />
+                    android:text="Weight"
+                    android:textColor="@color/colorBlack" />
 
 
             </LinearLayout>
@@ -99,12 +102,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
+                    android:textColor="@color/colorBlack"
                     android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Height" />
+                    android:text="Height"
+                    android:textColor="@color/colorBlack" />
 
             </LinearLayout>
 
@@ -133,7 +138,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ability : (Scroll Down)" />
+                    android:text="Ability : (Scroll Down)"
+                    android:textColor="@color/colorBlack" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rcv_ability"
@@ -149,8 +155,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.01"
-                android:background="@color/gray"
-                />
+                android:background="@color/gray" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -162,7 +167,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Stats : (Scroll Down)" />
+                    android:text="Stats : (Scroll Down)"
+                    android:textColor="@color/colorBlack" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rcv_stats"
@@ -178,28 +184,28 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/gray"
-            />
+            android:background="@color/gray" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:weightSum="2"
+            android:orientation="horizontal"
             android:padding="3dp"
-            android:orientation="horizontal">
+            android:weightSum="2">
 
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical"
                 android:padding="4dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Move :\n(Scroll Down / Pick One)" />
+                    android:text="Move :\n(Scroll Down / Pick One)"
+                    android:textColor="@color/colorBlack" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rcv_move"
@@ -210,30 +216,33 @@
                 </android.support.v7.widget.RecyclerView>
 
             </LinearLayout>
+
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.01"
-                android:background="@color/gray"
-                />
+                android:background="@color/gray" />
+
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical"
                 android:padding="4dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Detail : " />
+                    android:text="Detail : "
+                    android:textColor="@color/colorBlack" />
 
                 <TextView
                     android:id="@+id/txv_info_move"
-                    android:layout_marginLeft="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="" />
+                    android:layout_marginLeft="8dp"
+                    android:text=""
+                    android:textColor="@color/colorBlack" />
 
             </LinearLayout>
         </LinearLayout>
@@ -242,14 +251,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
-            android:text="Other Detail : " />
+            android:text="Other Detail : "
+            android:textColor="@color/colorBlack" />
 
         <TextView
             android:id="@+id/txv_info_move_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:text="" />
+            android:text=""
+            android:textColor="@color/colorBlack" />
 
     </LinearLayout>
 

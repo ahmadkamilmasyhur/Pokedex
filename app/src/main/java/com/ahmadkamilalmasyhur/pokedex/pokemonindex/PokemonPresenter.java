@@ -55,17 +55,17 @@ public class PokemonPresenter implements PokemonContract.PokemonPresenter {
     private void processServerResponse(Response<PokemonListResponse> response) {
         if (response.code() == HttpsURLConnection.HTTP_OK) {
             if (null != response.body()) {
-                maximumPokemonData = response.body().getCount();
-                List<Pokemon> pokemons = response.body().getResults();
-                if (pokemons.size() > 0) {
-                    pokemonView.updateDataSource(pokemons);
-                }
+                processPokemonListResponse(response.body());
             } else {
                 pokemonView.showShortErrorSnackbarMessage("");
             }
         } else {
             try {
-                pokemonView.showShortErrorSnackbarMessage(response.errorBody().string());
+                if (null != response.errorBody()){
+                    pokemonView.showShortErrorSnackbarMessage(response.errorBody().string());
+                } else {
+                    pokemonView.showShortErrorSnackbarMessage("");
+                }
             } catch (IOException e) {
                 e.printStackTrace();
                 pokemonView.showShortErrorSnackbarMessage("");
@@ -73,6 +73,14 @@ public class PokemonPresenter implements PokemonContract.PokemonPresenter {
                 e.printStackTrace();
                 pokemonView.showShortErrorSnackbarMessage("");
             }
+        }
+    }
+
+    public void processPokemonListResponse(PokemonListResponse response) {
+        maximumPokemonData = response.getCount();
+        List<Pokemon> pokemons = response.getResults();
+        if (pokemons.size() > 0) {
+            pokemonView.updateDataSource(pokemons);
         }
     }
 

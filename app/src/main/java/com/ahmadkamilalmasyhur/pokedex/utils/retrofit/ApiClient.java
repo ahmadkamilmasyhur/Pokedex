@@ -13,7 +13,6 @@ public class ApiClient {
     public static Retrofit getClient() {
         if (null == retrofit) {
             OkHttpClient client = new OkHttpClient.Builder()
-//                    .addInterceptor(new ApiInterceptor())
                     .build();
             Gson gson = new GsonBuilder()
                     .setLenient()

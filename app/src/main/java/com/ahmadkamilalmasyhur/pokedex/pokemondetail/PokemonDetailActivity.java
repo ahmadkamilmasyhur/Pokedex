@@ -1,8 +1,8 @@
 package com.ahmadkamilalmasyhur.pokedex.pokemondetail;
 
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -12,12 +12,10 @@ import com.ahmadkamilalmasyhur.pokedex.R;
 import com.ahmadkamilalmasyhur.pokedex.model.pokemondetail.Ability;
 import com.ahmadkamilalmasyhur.pokedex.model.pokemondetail.Move;
 import com.ahmadkamilalmasyhur.pokedex.model.pokemondetail.Stat;
-import com.ahmadkamilalmasyhur.pokedex.pokemonindex.PokemonAdapter;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
-import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -72,8 +70,14 @@ public class PokemonDetailActivity extends AppCompatActivity implements PokemonD
     }
 
     private void setUpBackInHome() {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        try {
+            if (null != getSupportActionBar()) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setDisplayShowHomeEnabled(true);
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -161,13 +165,23 @@ public class PokemonDetailActivity extends AppCompatActivity implements PokemonD
     }
 
     @Override
-    public void setPokemonMove(String move){
+    public void setPokemonMove(String move) {
         pokemonMove.setText(move);
     }
 
     @Override
-    public void setPokemonMoveDetail(String detail){
+    public void setPokemonMoveDetail(String detail) {
         pokemonMoveDetail.setText(detail);
+    }
+
+    @Override
+    public void showShortErrorSnackbarMessage(String message) {
+        if (message.contains("<!DOCTYPE html>")) {
+            message = getResources().getString(R.string.error_1);
+        } else {
+            message = getResources().getString(R.string.response_error);
+        }
+        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show();
     }
 
     private void setUpPresenter() {

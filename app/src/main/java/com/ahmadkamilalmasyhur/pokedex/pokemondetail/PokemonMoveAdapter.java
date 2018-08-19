@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ahmadkamilalmasyhur.pokedex.R;
@@ -18,8 +17,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PokemonMoveAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    List<Move> moveList = new ArrayList<>();
-    PokemonDetailContract.IPokemonDetailPresenter presenter;
+    private List<Move> moveList = new ArrayList<>();
+    private PokemonDetailContract.IPokemonDetailPresenter presenter;
 
     public PokemonMoveAdapter(PokemonDetailContract.IPokemonDetailPresenter mPresenter) {
         presenter = mPresenter;
@@ -57,7 +56,7 @@ public class PokemonMoveAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final Move move) {
+        private void bind(final @NonNull Move move) {
             moveDetail.setText(move.getMove().getName());
             moveDetail.setOnClickListener(new View.OnClickListener() {
                 @Override

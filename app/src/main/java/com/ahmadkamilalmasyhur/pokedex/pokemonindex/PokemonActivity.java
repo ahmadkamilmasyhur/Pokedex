@@ -1,5 +1,6 @@
 package com.ahmadkamilalmasyhur.pokedex.pokemonindex;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -70,10 +71,11 @@ public class PokemonActivity extends AppCompatActivity implements PokemonContrac
 
     @Override
     public void showShortErrorSnackbarMessage(String message) {
-        if (!message.equalsIgnoreCase("")) {
-            Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show();
+        if (message.contains("<!DOCTYPE html>")) {
+            message = getResources().getString(R.string.error_1);
         } else {
-            Snackbar.make(findViewById(android.R.id.content), getResources().getText(R.string.response_error), Snackbar.LENGTH_SHORT).show();
+            message = getResources().getString(R.string.response_error);
         }
+        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show();
     }
 }

@@ -29,6 +29,8 @@ public interface PokemonDetailContract {
         void updatePokemonMoves(List<Move> moves);
 
         void setPokemonMoveDetail(String detail);
+
+        void showShortErrorSnackbarMessage(String message);
     }
 
     interface IPokemonDetailPresenter extends BasePresenter {
