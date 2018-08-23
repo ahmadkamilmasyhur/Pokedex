@@ -1,15 +1,18 @@
 package com.ahmadkamilalmasyhur.pokedex.pokemonindex;
 
-import com.ahmadkamilalmasyhur.pokedex.model.pokemondetail.PokemonDetailResponse;
-import com.ahmadkamilalmasyhur.pokedex.model.pokemonlist.PokemonListResponse;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemonlist.Pokemon;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemonlist.PokemonListResponse;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.mockito.internal.matchers.Null;
 
-import static org.junit.Assert.*;
+import java.util.ArrayList;
+import java.util.List;
 
+/*
+ * Test For PokemonIndex Package
+ */
 public class PokemonPresenterTest {
 
     private PokemonContract.PokemonView view;
@@ -18,14 +21,14 @@ public class PokemonPresenterTest {
 
     @Before
     public void setup(){
-        response = Mockito.mock(PokemonListResponse.class);
         view = Mockito.mock(PokemonContract.PokemonView.class);
         presenter = new PokemonPresenter(view);
     }
 
 
     @Test
-    public void processPokemonListResponses(){
-        presenter.processPokemonListResponse(response);
+    public void testProcessPokemonListResponses(){
+        presenter.getNextListPokemon();
+        Mockito.verify(view).showShortErrorSnackbarMessage("No More Data Provided");
     }
 }

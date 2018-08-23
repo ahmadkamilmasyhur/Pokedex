@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ahmadkamilalmasyhur.pokedex.R;
-import com.ahmadkamilalmasyhur.pokedex.model.pokemondetail.Stat;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemondetail.Stat;
 
 import java.util.ArrayList;
 import java.util.List;

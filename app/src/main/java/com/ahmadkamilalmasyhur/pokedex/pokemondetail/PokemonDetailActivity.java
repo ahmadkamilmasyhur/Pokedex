@@ -6,12 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ahmadkamilalmasyhur.pokedex.R;
-import com.ahmadkamilalmasyhur.pokedex.model.pokemondetail.Ability;
-import com.ahmadkamilalmasyhur.pokedex.model.pokemondetail.Move;
-import com.ahmadkamilalmasyhur.pokedex.model.pokemondetail.Stat;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemondetail.Ability;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemondetail.Move;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemondetail.Stat;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
@@ -57,6 +59,9 @@ public class PokemonDetailActivity extends AppCompatActivity implements PokemonD
     TextView pokemonMove;
     @BindView(R.id.txv_info_move_detail)
     TextView pokemonMoveDetail;
+
+    @BindView(R.id.pgb_detail_pokemon)
+    ProgressBar pokemonDetailProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,6 +179,15 @@ public class PokemonDetailActivity extends AppCompatActivity implements PokemonD
         pokemonMoveDetail.setText(detail);
     }
 
+    public void togglePokemonDetailProgressGone() {
+        pokemonDetailProgressBar.setVisibility(View.GONE);
+    }
+
+    public void togglePokemonDetailProgressVisible() {
+        pokemonDetailProgressBar.setVisibility(View.VISIBLE);
+    }
+
+
     @Override
     public void showShortErrorSnackbarMessage(String message) {
         if (message.contains("<!DOCTYPE html>")) {
@@ -187,7 +201,7 @@ public class PokemonDetailActivity extends AppCompatActivity implements PokemonD
     private void setUpPresenter() {
         presenter = new PokemonDetailPresenter(this);
         presenter.setPokemonNameForData(getIntent().getStringExtra(POKEMON_ID));
-        presenter.start();
+        presenter.getPokemonDataByName();
     }
 
     @Override

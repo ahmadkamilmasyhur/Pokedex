@@ -1,15 +1,16 @@
 package com.ahmadkamilalmasyhur.pokedex.pokemonindex;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.ahmadkamilalmasyhur.pokedex.R;
-import com.ahmadkamilalmasyhur.pokedex.model.pokemonlist.Pokemon;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemonlist.Pokemon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,8 @@ public class PokemonActivity extends AppCompatActivity implements PokemonContrac
 
     @BindView(R.id.rcv_list_pokemon)
     RecyclerView pokemonRecyclerView;
+    @BindView(R.id.pgb_list_pokemon)
+    ProgressBar progressBarPokemon;
     private List<Pokemon> pokemonList = new ArrayList<>();
     private PokemonPresenter presenter;
     PokemonAdapter adapter;
@@ -32,8 +35,8 @@ public class PokemonActivity extends AppCompatActivity implements PokemonContrac
         setContentView(R.layout.activity_pokemon);
         ButterKnife.bind(this);
         presenter = new PokemonPresenter(this);
+        presenter.getNextListPokemon();
         prepareRecyclerView();
-        presenter.start();
         pokemonRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -78,4 +81,14 @@ public class PokemonActivity extends AppCompatActivity implements PokemonContrac
         }
         Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show();
     }
+
+
+    public void togglePokemonDetailProgressGone() {
+        progressBarPokemon.setVisibility(View.GONE);
+    }
+
+    public void togglePokemonDetailProgressVisible() {
+        progressBarPokemon.setVisibility(View.VISIBLE);
+    }
+
 }

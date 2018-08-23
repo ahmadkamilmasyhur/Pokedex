@@ -1,8 +1,8 @@
 package com.ahmadkamilalmasyhur.pokedex.utils.retrofit.pokeapi.v2;
 
-import com.ahmadkamilalmasyhur.pokedex.model.pokemondetail.PokemonDetailResponse;
-import com.ahmadkamilalmasyhur.pokedex.model.pokemonlist.PokemonListResponse;
-import com.ahmadkamilalmasyhur.pokedex.model.pokemonmove.MoveResponse;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemondetail.PokemonDetailResponse;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemonlist.PokemonListResponse;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemonmove.MoveResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
