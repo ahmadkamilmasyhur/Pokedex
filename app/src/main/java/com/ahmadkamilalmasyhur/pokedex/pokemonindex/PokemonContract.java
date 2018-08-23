@@ -2,7 +2,7 @@ package com.ahmadkamilalmasyhur.pokedex.pokemonindex;
 
 import com.ahmadkamilalmasyhur.pokedex.BasePresenter;
 import com.ahmadkamilalmasyhur.pokedex.BaseView;
-import com.ahmadkamilalmasyhur.pokedex.model.pokemonlist.Pokemon;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemonlist.Pokemon;
 
 import java.util.List;
 
@@ -11,10 +11,13 @@ public interface PokemonContract {
         void updateDataSource(List<Pokemon> pokemons);
 
         void showShortErrorSnackbarMessage(String message);
+
+        void togglePokemonDetailProgressGone();
+
+        void togglePokemonDetailProgressVisible();
     }
 
     interface PokemonPresenter extends BasePresenter {
-        void getListPokemonByIndex(int limit, int offset);
 
         void getNextListPokemon();
     }

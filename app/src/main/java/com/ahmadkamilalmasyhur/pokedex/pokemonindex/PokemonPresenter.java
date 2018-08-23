@@ -1,7 +1,7 @@
 package com.ahmadkamilalmasyhur.pokedex.pokemonindex;
 
-import com.ahmadkamilalmasyhur.pokedex.model.pokemonlist.Pokemon;
-import com.ahmadkamilalmasyhur.pokedex.model.pokemonlist.PokemonListResponse;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemonlist.Pokemon;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemonlist.PokemonListResponse;
 import com.ahmadkamilalmasyhur.pokedex.utils.retrofit.ApiClient;
 import com.ahmadkamilalmasyhur.pokedex.utils.retrofit.pokeapi.v2.iPokemon;
 
@@ -19,20 +19,15 @@ public class PokemonPresenter implements PokemonContract.PokemonPresenter {
     private PokemonContract.PokemonView pokemonView;
     private final int limit = 20;
     private int offset = 0;
-    private int maximumPokemonData = 0;
+    private int maximumPokemonData = 20;
 
     public PokemonPresenter(PokemonContract.PokemonView view) {
         pokemonView = view;
         pokemonView.setPresenter(this);
     }
 
-    @Override
-    public void start() {
-        getListPokemonByIndex(limit, offset);
-    }
-
-    @Override
-    public void getListPokemonByIndex(int limit, int offset) {
+    private void getListPokemonByIndex(int limit, int offset) {
+        pokemonView.togglePokemonDetailProgressVisible();
         iPokemon apiService = ApiClient.getClient().create(iPokemon.class);
         Call<PokemonListResponse> call = apiService.getPokemon(String.valueOf(limit), String.valueOf(offset));
         if (offset <= maximumPokemonData) {
@@ -40,15 +35,17 @@ public class PokemonPresenter implements PokemonContract.PokemonPresenter {
                 @Override
                 public void onResponse(Call<PokemonListResponse> call, Response<PokemonListResponse> response) {
                     processServerResponse(response);
+                    pokemonView.togglePokemonDetailProgressGone();
                 }
 
                 @Override
                 public void onFailure(Call<PokemonListResponse> call, Throwable t) {
-
+                    pokemonView.togglePokemonDetailProgressGone();
                 }
             });
         } else {
             pokemonView.showShortErrorSnackbarMessage("No More Data Provided");
+            pokemonView.togglePokemonDetailProgressGone();
         }
     }
 
@@ -76,7 +73,7 @@ public class PokemonPresenter implements PokemonContract.PokemonPresenter {
         }
     }
 
-    public void processPokemonListResponse(PokemonListResponse response) {
+    private void processPokemonListResponse(PokemonListResponse response) {
         maximumPokemonData = response.getCount();
         List<Pokemon> pokemons = response.getResults();
         if (pokemons.size() > 0) {

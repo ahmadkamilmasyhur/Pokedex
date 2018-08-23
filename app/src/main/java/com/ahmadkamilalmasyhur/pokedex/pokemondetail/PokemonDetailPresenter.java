@@ -1,11 +1,11 @@
 package com.ahmadkamilalmasyhur.pokedex.pokemondetail;
 
-import com.ahmadkamilalmasyhur.pokedex.model.pokemondetail.Ability;
-import com.ahmadkamilalmasyhur.pokedex.model.pokemondetail.Move;
-import com.ahmadkamilalmasyhur.pokedex.model.pokemondetail.PokemonDetailResponse;
-import com.ahmadkamilalmasyhur.pokedex.model.pokemondetail.Stat;
-import com.ahmadkamilalmasyhur.pokedex.model.pokemondetail.Type;
-import com.ahmadkamilalmasyhur.pokedex.model.pokemonmove.MoveResponse;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemondetail.Ability;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemondetail.Move;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemondetail.PokemonDetailResponse;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemondetail.Stat;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemondetail.Type;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemonmove.MoveResponse;
 import com.ahmadkamilalmasyhur.pokedex.utils.retrofit.ApiClient;
 import com.ahmadkamilalmasyhur.pokedex.utils.retrofit.pokeapi.v2.iPokemon;
 
@@ -31,23 +31,20 @@ public class PokemonDetailPresenter implements PokemonDetailContract.IPokemonDet
         pokemonName = stringExtra;
     }
 
-    @Override
-    public void start() {
-        getPokemonDataByName();
-    }
-
     public void getPokemonDataByName() {
+        pokemonDetailView.togglePokemonDetailProgressVisible();
         iPokemon apiService = ApiClient.getClient().create(iPokemon.class);
         Call<PokemonDetailResponse> call = apiService.getPokemonByName(pokemonName);
         call.enqueue(new Callback<PokemonDetailResponse>() {
             @Override
             public void onResponse(Call<PokemonDetailResponse> call, Response<PokemonDetailResponse> response) {
                 processServerResponse(response);
+                pokemonDetailView.togglePokemonDetailProgressGone();
             }
 
             @Override
             public void onFailure(Call<PokemonDetailResponse> call, Throwable t) {
-
+                pokemonDetailView.togglePokemonDetailProgressGone();
             }
         });
     }
@@ -59,17 +56,19 @@ public class PokemonDetailPresenter implements PokemonDetailContract.IPokemonDet
     }
 
     private void getPokemonMoveDetailById(String moveId) {
+        pokemonDetailView.togglePokemonDetailProgressVisible();
         iPokemon apiService = ApiClient.getClient().create(iPokemon.class);
         Call<MoveResponse> call = apiService.getPokemonMoveById(moveId);
         call.enqueue(new Callback<MoveResponse>() {
             @Override
             public void onResponse(Call<MoveResponse> call, Response<MoveResponse> response) {
                 processServerMoveResponse(response);
+                pokemonDetailView.togglePokemonDetailProgressGone();
             }
 
             @Override
             public void onFailure(Call<MoveResponse> call, Throwable t) {
-
+                pokemonDetailView.togglePokemonDetailProgressGone();
             }
         });
     }

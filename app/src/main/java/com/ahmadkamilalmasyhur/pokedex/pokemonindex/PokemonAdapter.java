@@ -1,6 +1,5 @@
 package com.ahmadkamilalmasyhur.pokedex.pokemonindex;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,10 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ahmadkamilalmasyhur.pokedex.R;
-import com.ahmadkamilalmasyhur.pokedex.model.pokemonlist.Pokemon;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemonlist.Pokemon;
 import com.ahmadkamilalmasyhur.pokedex.pokemondetail.PokemonDetailActivity;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 
 import butterknife.BindView;

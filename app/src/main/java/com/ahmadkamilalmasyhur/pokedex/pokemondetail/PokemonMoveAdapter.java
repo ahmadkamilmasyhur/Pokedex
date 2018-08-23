@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ahmadkamilalmasyhur.pokedex.R;
-import com.ahmadkamilalmasyhur.pokedex.model.pokemondetail.Move;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemondetail.Move;
 
 import java.util.ArrayList;
 import java.util.List;

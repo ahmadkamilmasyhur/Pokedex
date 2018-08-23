@@ -2,9 +2,9 @@ package com.ahmadkamilalmasyhur.pokedex.pokemondetail;
 
 import com.ahmadkamilalmasyhur.pokedex.BasePresenter;
 import com.ahmadkamilalmasyhur.pokedex.BaseView;
-import com.ahmadkamilalmasyhur.pokedex.model.pokemondetail.Ability;
-import com.ahmadkamilalmasyhur.pokedex.model.pokemondetail.Move;
-import com.ahmadkamilalmasyhur.pokedex.model.pokemondetail.Stat;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemondetail.Ability;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemondetail.Move;
+import com.ahmadkamilalmasyhur.pokedex.entity.pokemondetail.Stat;
 
 import java.util.List;
 
@@ -31,6 +31,10 @@ public interface PokemonDetailContract {
         void setPokemonMoveDetail(String detail);
 
         void showShortErrorSnackbarMessage(String message);
+
+        void togglePokemonDetailProgressGone();
+
+        void togglePokemonDetailProgressVisible();
     }
 
     interface IPokemonDetailPresenter extends BasePresenter {
